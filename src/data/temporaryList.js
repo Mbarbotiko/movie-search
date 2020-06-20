@@ -1,24 +1,41 @@
+
+
 const list = [
     {
       title: 'Jaws',
-      image: 'https://react.js.org',
       director: 'Amanda',
       objectID: 0,
-      image:'../images/jaws.jpg'
+      image:'./images/jaws.jpg'
     },
     {
       title: 'Die Hard',
-      image: 'https://react.js.org',
       director: 'George',
       objectID: 2,
-      image:'../images/diehard.jpg'
+      image:'./images/diehard.jpg'
     },
     {
       title: 'Gremlins',
-      image: 'https://react.js.org',
       director: 'James',
       objectID: 3,
-      image:'../images/gremlins.jpg'
+      image:'./images/gremlins.jpg'
+    },
+    {
+      title: 'Jaws2',
+      director: 'Amanda',
+      objectID: 4,
+      image:'./images/jaws.jpg'
+    },
+    {
+      title: 'Die Hard2',
+      director: 'George',
+      objectID: 5,
+      image:'./images/diehard.jpg'
+    },
+    {
+      title: 'Gremlins2',
+      director: 'James',
+      objectID: 6,
+      image:'./images/gremlins.jpg'
     }
   ]
 

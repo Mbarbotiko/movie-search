@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.scss';
 import list from './data/temporaryList'
 // import Table from './components/Table';
@@ -7,13 +6,12 @@ import list from './data/temporaryList'
 
 
 //http://www.omdbapi.com/ hook this up later
-const isSearched = searchTerm => {
-  return item => {
-    console.log(item.title.toLowerCase().includes(searchTerm.toLowerCase()))
-    return item.title.toLowerCase().includes(searchTerm.toLowerCase());
-  }
-}
 
+// const isSearched = searchTerm => {
+//   return item => {
+//     return item.title.toLowerCase().includes(searchTerm.toLowerCase());
+//   }
+// }
 
 class App extends Component {
   constructor(props) {
@@ -42,6 +40,8 @@ class App extends Component {
     })
   }
 
+
+
   render() {
     const { searchTerm, list } = this.state;
     return (
@@ -68,17 +68,24 @@ class App extends Component {
 
 class Table extends Component {
   render() {
+    const isSearched = searchTerm => {
+      return item => {
+        return item.title.toLowerCase().includes(searchTerm.toLowerCase());
+      }
+    }
     const { list, pattern, onDismiss } = this.props
     return (
-      <div className='Results'>
+      <div className='Results-Container'>
         {list.filter(isSearched(pattern)).map(item =>
-          <div key={item.objectID}>
-            <span>
-              <a href={item.image}>{item.title}</a>
-            </span>
-            <span>
-              {item.director}
-            </span>
+          <div className='Results-Details' key={item.objectID} >
+
+            <div>
+              <img src={require(`${item.image}`)} alt={`Movie Poster: ${item.title}`} />
+              <p>Movie Title : {item.title}</p>
+            </div>
+            <div>
+              <p>Director : {item.director}</p>
+            </div>
             <span>
               <button
                 onClick={() => onDismiss(item.objectID)}
@@ -88,7 +95,9 @@ class Table extends Component {
             </span>
 
           </div>
+
         )}
+
       </div>
     )
   }
