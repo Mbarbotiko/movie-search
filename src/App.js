@@ -1,6 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.scss';
+import list from './data/temporaryList';
+
+//http://www.omdbapi.com/ hook this up later
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      list,
+    }
+  }
+
+
+
+}
 
 function App() {
   return (
