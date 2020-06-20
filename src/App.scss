@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  color:black;
 }
 
 .App-header {
@@ -11,14 +12,16 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+
 }
 
 .Results-Container{
   width:80%;
   margin:auto;
-  background-color:orange;
+  background-color: #282c34;
   padding:1%;
   min-height:100vh;
+  border-radius: 10px;
 }
 
 .Results-Container img{
@@ -30,5 +33,21 @@
   width:15.6%;
   min-height:200px;
   margin:.5%;
-  background-color:blue;
+  background-color:white;
+  border-radius: 10px;
+}
+
+.Search{
+  margin:100px;
+  color:red;
+}
+
+.Button{
+  color:orange;
+  background-color:black;
+}
+
+.Button.Dismiss{
+  color:white;
+  background-color:black;
 }

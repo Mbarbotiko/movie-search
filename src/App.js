@@ -12,6 +12,7 @@ import list from './data/temporaryList'
 //     return item.title.toLowerCase().includes(searchTerm.toLowerCase());
 //   }
 // }
+//moved this into the table component
 
 class App extends Component {
   constructor(props) {
@@ -55,7 +56,8 @@ class App extends Component {
         <Search
           value={searchTerm}
           onChange={this.onSearchChange}
-        />
+        ><p>Search a movie title</p>
+        </Search>
         <Table
           list={list}
           pattern={searchTerm}
@@ -87,12 +89,21 @@ class Table extends Component {
               <p>Director : {item.director}</p>
             </div>
             <span>
-              <button
+              <Button
                 onClick={() => onDismiss(item.objectID)}
-                type='button'
-              >Dismiss
-                      </button>
+                className='Button Dismiss'
+              >
+                Dismiss
+              </Button>
+              {/* <Button //show difference of being able to pass className as props instead
+                onClick={() => onDismiss(item.objectID)}
+                className='Button'
+              >
+                Dismiss
+              </Button> */}
+
             </span>
+
 
           </div>
 
@@ -105,18 +116,32 @@ class Table extends Component {
 
 class Search extends Component {
   render() {
-    const { value, onChange } = this.props
+    const { value, onChange, children } = this.props
     return (
-      <form>
-
+      <form className='Search'>
         <input
           type='text'
           value={value}
           onChange={onChange}
 
         ></input>
+        {children}
       </form>
 
+    )
+  }
+}
+
+class Button extends Component {
+  render() {
+    //leave className optional by assigning when destructuring will override if there is a prop of className assigned within the component when its instantiated
+    const { onClick, className = '', children } = this.props;
+    return (
+      <button onClick={onClick}
+        className={className}
+        type='button'>
+        {children}
+      </button>
     )
   }
 }
