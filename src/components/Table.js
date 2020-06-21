@@ -1,12 +1,18 @@
 import React from 'react';
 import Button from './Button';
 //import list from '../data/temporaryList';
+const errorImage = './images/imageerror.png';
+const titleNotFound = 'Title Not Found'
 
 
 const Table = ({ list, pattern, onDismiss }) => {
     const isSearched = searchTerm => {
         return item => {
-            return item.title.toLowerCase().includes(searchTerm.toLowerCase());
+            if (item.title) {
+                return item.title.toLowerCase().includes(searchTerm.toLowerCase());
+            } else {
+                return 'Title Not Found'.toLowerCase().includes(searchTerm.toLowerCase());
+            }
         }
     }
     return (
@@ -14,36 +20,36 @@ const Table = ({ list, pattern, onDismiss }) => {
 
             {list.filter(isSearched(pattern)).map(item =>
 
-                    <div className='Results-Details' key={item.objectID} >
+                <div className='Results-Details' key={item.objectID} >
 
-                        <div>
+                    <div>
 
-                            <img src={require(`${item.image}`)} alt={`Movie Poster: ${item.title}`} />
+                        <img src={require(`${item.image || errorImage}`)} alt={`Movie Poster: ${item.title}`} />
 
-                            <p>Movie Title : {item.title}</p>
-                        </div>
-                        <div>
-                            <p>Director : {item.director}</p>
-                        </div>
-                        <span>
-                            <Button
-                                onClick={() => onDismiss(item.objectID)}
-                                className='Button Dismiss'
-                            >
-                                Dismiss
+                        <p>Movie Title : {item.title || titleNotFound}</p>
+                    </div>
+                    <div>
+                        <p>Director : {item.director}</p>
+                    </div>
+                    <span>
+                        <Button
+                            onClick={() => onDismiss(item.objectID)}
+                            className='Button Dismiss'
+                        >
+                            Dismiss
               </Button>
-                            {/* <Button //show difference of being able to pass className as props instead
+                        {/* <Button //show difference of being able to pass className as props instead
                 onClick={() => onDismiss(item.objectID)}
                 className='Button'
               >
                 Dismiss
               </Button> */}
 
-                        </span>
+                    </span>
 
 
-                    </div>
-            
+                </div>
+
 
             )}
 

@@ -5,6 +5,8 @@ import Table from './components/Table';
 import Search from './components/Search';
 import ErrorBoundary from './components/ErrorBoundary'
 
+//npm run deploy
+
 
 
 //http://www.omdbapi.com/ hook this up later
