@@ -4,20 +4,18 @@ import list from './data/temporaryList'
 import Table from './components/Table';
 import Search from './components/Search';
 import ErrorBoundary from './components/ErrorBoundary'
-//const DEFAULT_QUERY = 'redux';
 const PATH_BASE = 'http://www.omdbapi.com/?apikey=';
 //remember must use REACT_APP in .env to access
 const OMDB_KEY = process.env.REACT_APP_OMDB_API_KEY;
 const PARAM_SEARCH = {
   TITLE: '&s=',
-  TYPE_MOVIE : '&type=movie',
-  MOVIE_DETAIL : 'i='//later when adding details click, would be a second call based on the first call, store the ID then load details
+  TYPE_MOVIE: '&type=movie',
+  MOVIE_DETAIL: 'i='//later when adding details click, would be a second call based on the first call, store the ID then load details
   //add others later? Year etc
 }
 
-const searchString = 'jaws'
-
-const OMDB_URL = `${PATH_BASE + OMDB_KEY + PARAM_SEARCH.TITLE + searchString + PARAM_SEARCH.TYPE_MOVIE}`
+const DEFAULT_QUERY = 'jaws';
+const OMDB_URL = `${PATH_BASE + OMDB_KEY + PARAM_SEARCH.TITLE + DEFAULT_QUERY + PARAM_SEARCH.TYPE_MOVIE}`
 
 
 
@@ -38,12 +36,37 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      list,
-      searchTerm: ''
+      result: null,
+      searchTerm: DEFAULT_QUERY
     }
 
+    this.setSearchTopStories = this.setSearchTopStories.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
+  }
+
+  setSearchTopStories(result) {
+    this.setState({ result });
+  }
+
+  componentDidMount() {
+    const { searchTerm } = this.state;
+    const firstSearch = `${PATH_BASE + OMDB_KEY + PARAM_SEARCH.TITLE + searchTerm + PARAM_SEARCH.TYPE_MOVIE}`;
+
+    fetch(firstSearch)
+      .then(response => {
+        if (response.status === 200) {
+
+          return response.json();
+        }
+      })
+      .then(result => {
+        console.log(result.Search)
+        //set state using result argument passed to the setSearchTopStories method
+        this.setSearchTopStories(result)
+      }
+      )
+      .catch(error => error);
   }
 
   onDismiss(id) {
@@ -70,7 +93,10 @@ class App extends Component {
 
 
   render() {
-    const { searchTerm, list } = this.state;
+    const { searchTerm, result } = this.state;
+    if (!result) {
+      return null;//return null and show nothing if there is no result
+    } 
     return (
       <div className="App">
         <header className="App-header">
@@ -88,7 +114,7 @@ class App extends Component {
         </ErrorBoundary>
         <ErrorBoundary>
           <Table
-            list={list}
+            list={result.Search}
             pattern={searchTerm}
             onDismiss={this.onDismiss}
           />

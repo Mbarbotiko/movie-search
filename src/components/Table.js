@@ -8,8 +8,8 @@ const titleNotFound = 'Title Not Found'
 const Table = ({ list, pattern, onDismiss }) => {
     const isSearched = searchTerm => {
         return item => {
-            if (item.title) {
-                return item.title.toLowerCase().includes(searchTerm.toLowerCase());
+            if (item.Title) {
+                return item.Title.toLowerCase().includes(searchTerm.toLowerCase());
             } else {
                 return 'Title Not Found'.toLowerCase().includes(searchTerm.toLowerCase());
             }
@@ -20,20 +20,22 @@ const Table = ({ list, pattern, onDismiss }) => {
 
             {list.filter(isSearched(pattern)).map(item =>
 
-                <div className='Results-Details' key={item.objectID} >
+                <div className='Results-Details' key={item.imdbID} >
 
                     <div>
 
-                        <img src={require(`${item.image || errorImage}`)} alt={`Movie Poster: ${item.title}`} />
+                        {/* <img src={require(`${item.image || errorImage}`)} alt={`Movie Poster: ${item.title}`} /> */}
 
-                        <p>Movie Title : {item.title || titleNotFound}</p>
+                        <img src={item.Poster} alt={`Movie Poster: ${item.title}`} />
+
+                        <p>Movie Title : {item.Title || titleNotFound}</p>
                     </div>
                     <div>
-                        <p>Director : {item.director}</p>
+                        <p>Year : {item.Year}</p>
                     </div>
                     <span>
                         <Button
-                            onClick={() => onDismiss(item.objectID)}
+                            onClick={() => onDismiss(item.imdbID)}
                             className='Button Dismiss'
                         >
                             Dismiss
