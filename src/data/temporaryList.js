@@ -1,3 +1,4 @@
+const path =  './images/';
 
 
 const list = [
@@ -5,37 +6,37 @@ const list = [
       title: 'Jaws',
       director: 'Amanda',
       objectID: 0,
-      image:'./images/jaws.jpg'
+      image:`${path}jaws.jpg`
     },
     {
       title: 'Die Hard',
       director: 'George',
       objectID: 2,
-      image:'./images/diehard.jpg'
+      image:`${path}diehard.jpg`
     },
     {
       title: 'Gremlins',
       director: 'James',
       objectID: 3,
-      image:'./images/gremlins.jpg'
+      image:`${path}gremlins.jpg`
     },
     {
       title: 'Jaws2',
       director: 'Amanda',
       objectID: 4,
-      image:'./images/jaws.jpg'
+      image:`${path}jaws.jpg`
     },
     {
       title: 'Die Hard2',
       director: 'George',
       objectID: 5,
-      image:'./images/diehard.jpg'
+      image:`${path}diehard.jpg`
     },
     {
       title: 'Gremlins2',
       director: 'James',
       objectID: 6,
-      image:'./images/gremlins.jpg'
+      image:`${path}gremlins.jpg`
     }
   ]
 
