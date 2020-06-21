@@ -4,6 +4,22 @@ import list from './data/temporaryList'
 import Table from './components/Table';
 import Search from './components/Search';
 import ErrorBoundary from './components/ErrorBoundary'
+//const DEFAULT_QUERY = 'redux';
+const PATH_BASE = 'http://www.omdbapi.com/?apikey=';
+//remember must use REACT_APP in .env to access
+const OMDB_KEY = process.env.REACT_APP_OMDB_API_KEY;
+const PARAM_SEARCH = {
+  TITLE: '&s=',
+  TYPE_MOVIE : '&type=movie',
+  MOVIE_DETAIL : 'i='//later when adding details click, would be a second call based on the first call, store the ID then load details
+  //add others later? Year etc
+}
+
+const searchString = 'jaws'
+
+const OMDB_URL = `${PATH_BASE + OMDB_KEY + PARAM_SEARCH.TITLE + searchString + PARAM_SEARCH.TYPE_MOVIE}`
+
+
 
 //npm run deploy
 
@@ -97,7 +113,7 @@ class App extends Component {
 //           <div className='Results-Details' key={item.objectID} >
 
 //             <div>
-//               <img src={require(`${item.image}`)} alt={`Movie Poster: ${item.title}`} />
+//               <img src={require(`${ item.image }`)} alt={`Movie Poster: ${ item.title } `} />
 //               <p>Movie Title : {item.title}</p>
 //             </div>
 //             <div>
@@ -142,7 +158,7 @@ class App extends Component {
 //         <div className='Results-Details' key={item.objectID} >
 
 //           <div>
-//             <img src={require(`${item.image}`)} alt={`Movie Poster: ${item.title}`} />
+//             <img src={require(`${ item.image } `)} alt={`Movie Poster: ${ item.title } `} />
 //             <p>Movie Title : {item.title}</p>
 //           </div>
 //           <div>
