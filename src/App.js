@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './App.scss';
 import list from './data/temporaryList'
-// import Table from './components/Table';
-// import Search from './components/Search';
+import Table from './components/Table';
+import Search from './components/Search';
+
 
 
 //http://www.omdbapi.com/ hook this up later
@@ -115,71 +116,89 @@ class App extends Component {
 // }
 
 
-const Table = ({ list, pattern, onDismiss }) => {
-  const isSearched = searchTerm => {
-    return item => {
-      return item.title.toLowerCase().includes(searchTerm.toLowerCase());
-    }
-  }
-  return (
-    <div className='Results-Container'>
-      {list.filter(isSearched(pattern)).map(item =>
-        <div className='Results-Details' key={item.objectID} >
-
-          <div>
-            <img src={require(`${item.image}`)} alt={`Movie Poster: ${item.title}`} />
-            <p>Movie Title : {item.title}</p>
-          </div>
-          <div>
-            <p>Director : {item.director}</p>
-          </div>
-          <span>
-            <Button
-              onClick={() => onDismiss(item.objectID)}
-              className='Button Dismiss'
-            >
-              Dismiss
-            </Button>
-            {/* <Button //show difference of being able to pass className as props instead
-              onClick={() => onDismiss(item.objectID)}
-              className='Button'
-            >
-              Dismiss
-            </Button> */}
-
-          </span>
-
-
-        </div>
-
-      )}
-
-    </div>
-  )
-
-}
-
-// class Search extends Component {
-//   render() {
-//     const { value, onChange, children } = this.props
-//     return (
-//       <form className='Search'>
-//         <input
-//           type='text'
-//           value={value}
-//           onChange={onChange}
-
-//         ></input>
-//         {children}
-//       </form>
-
-//     )
+// const Table = ({ list, pattern, onDismiss }) => {
+//   const isSearched = searchTerm => {
+//     return item => {
+//       return item.title.toLowerCase().includes(searchTerm.toLowerCase());
+//     }
 //   }
+//   return (
+//     <div className='Results-Container'>
+//       {list.filter(isSearched(pattern)).map(item =>
+//         <div className='Results-Details' key={item.objectID} >
+
+//           <div>
+//             <img src={require(`${item.image}`)} alt={`Movie Poster: ${item.title}`} />
+//             <p>Movie Title : {item.title}</p>
+//           </div>
+//           <div>
+//             <p>Director : {item.director}</p>
+//           </div>
+//           <span>
+//             <Button
+//               onClick={() => onDismiss(item.objectID)}
+//               className='Button Dismiss'
+//             >
+//               Dismiss
+//             </Button>
+//             {/* <Button //show difference of being able to pass className as props instead
+//               onClick={() => onDismiss(item.objectID)}
+//               className='Button'
+//             >
+//               Dismiss
+//             </Button> */}
+
+//           </span>
+
+
+//         </div>
+
+//       )}
+
+//     </div>
+//   )
+
 // }
 
-// function Search({ value, onChange, children }){
-//   return(
-//     <form className='Search'>
+// // class Search extends Component {
+// //   render() {
+// //     const { value, onChange, children } = this.props
+// //     return (
+// //       <form className='Search'>
+// //         <input
+// //           type='text'
+// //           value={value}
+// //           onChange={onChange}
+
+// //         ></input>
+// //         {children}
+// //       </form>
+
+// //     )
+// //   }
+// // }
+
+// // function Search({ value, onChange, children }){
+// //   return(
+// //     <form className='Search'>
+// //     <input
+// //       type='text'
+// //       value={value}
+// //       onChange={onChange}
+
+// //     ></input>
+// //     {children}
+// //   </form>
+// //   )
+
+// // }
+
+// //changing to arrow function, remove block body, is now a concise body and the return is attached
+// const Search = ({ value, onChange, children }) =>
+//   //this.props.value, const {value} = this.props also is {value} when passed as argument it is automatically destructed for you and considered a prop
+//   //{ is wanting to use anything in between like condition etc use curly brackets and return (jsx here)
+
+//   <form className='Search'>
 //     <input
 //       type='text'
 //       value={value}
@@ -188,52 +207,41 @@ const Table = ({ list, pattern, onDismiss }) => {
 //     ></input>
 //     {children}
 //   </form>
-//   )
 
-// }
+// //}
 
-//changing to arrow function, remove block body, is now a concise body and the return is attached
-const Search = ({ value, onChange, children }) =>
-  //this.props.value, const {value} = this.props also is {value} when passed as argument it is automatically destructed for you and considered a prop
-  //{ is wanting to use anything in between like condition etc use curly brackets and return (jsx here)
 
-  <form className='Search'>
-    <input
-      type='text'
-      value={value}
-      onChange={onChange}
-
-    ></input>
-    {children}
-  </form>
-
-//}
+// //example of inline style but using variables instead
 
 
 
 
-// class Button extends Component {
-//   render() {
-//     //leave className optional by assigning when destructuring will override if there is a prop of className assigned within the component when its instantiated
-//     const { onClick, className = '', children } = this.props;
-//     return (
-//       <button onClick={onClick}
-//         className={className}
-//         type='button'>
-//         {children}
-//       </button>
-//     )
-//   }
-// }
+
+// // class Button extends Component {
+// //   render() {
+// //     //leave className optional by assigning when destructuring will override if there is a prop of className assigned within the component when its instantiated
+// //     const { onClick, className = '', children } = this.props;
+// //     return (
+// //       <button onClick={onClick}
+// //         className={className}
+// //         type='button'>
+// //         {children}
+// //       </button>
+// //     )
+// //   }
+// // }
 
 
-//reminder instead of accessing with this.props and passing props we're destructuring within the parameter, the arguments are being destructured to access the props
-const Button = ({ onClick, className = '', children }) =>
-  <button onClick={onClick}
-    className={className}
-    type='button'>
-    {children}
-  </button>
+// //reminder instead of accessing with this.props and passing props we're destructuring within the parameter, the arguments are being destructured to access the props
+
+// // const greenFont = { color: 'green' }
+// const Button = ({ onClick, className = '', children }) =>
+//   <button onClick={onClick}
+//     className={className}
+//     // style={greenFont}//example of inline style as a variable
+//     type='button'>
+//     {children}
+//   </button>
 
 
 export default App;

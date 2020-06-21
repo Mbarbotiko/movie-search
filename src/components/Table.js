@@ -1,38 +1,49 @@
-// import React, { Component } from 'react';
-// const isSearched = searchTerm => {
-//     return item => {
-//       console.log(item.title.toLowerCase().includes(searchTerm.toLowerCase()))
-//       return item.title.toLowerCase().includes(searchTerm.toLowerCase());
-//     }
-//   }
+import React from 'react';
+import Button from './Button';
+import list from '../data/temporaryList';
 
-// class Table extends Component {
-//     render() {
-//         const { list, pattern, onDismiss } = this.props
-//         return (
-//             <div className='Results'>
-//                 {list.filter(isSearched(pattern)).map(item =>
-//                     <div key={item.objectID}>
-//                         <span>
-//                             <a href={item.image}>{item.title}</a>
-//                         </span>
-//                         <span>
-//                             {item.director}
-//                         </span>
-//                         <span>
-//                             <button
-//                                 onClick={() => onDismiss(item.objectID)}
-//                                 type='button'
-//                             >Dismiss
-//                         </button>
-//                         </span>
+const Table = ({ list, pattern, onDismiss }) => {
+    const isSearched = searchTerm => {
+        return item => {
+            return item.title.toLowerCase().includes(searchTerm.toLowerCase());
+        }
+    }
+    return (
+        <div className='Results-Container'>
+            {list.filter(isSearched(pattern)).map(item =>
+                <div className='Results-Details' key={item.objectID} >
 
-//                     </div>
-//                 )}
-//             </div>
-//         )
-//     }
-// }
+                    <div>
+                        <img src={require(`${item.image}`)} alt={`Movie Poster: ${item.title}`} />
+                        <p>Movie Title : {item.title}</p>
+                    </div>
+                    <div>
+                        <p>Director : {item.director}</p>
+                    </div>
+                    <span>
+                        <Button
+                            onClick={() => onDismiss(item.objectID)}
+                            className='Button Dismiss'
+                        >
+                            Dismiss
+              </Button>
+                        {/* <Button //show difference of being able to pass className as props instead
+                onClick={() => onDismiss(item.objectID)}
+                className='Button'
+              >
+                Dismiss
+              </Button> */}
+
+                    </span>
 
 
-// export default Table;
+                </div>
+
+            )}
+
+        </div>
+    )
+
+}
+
+export default Table;
