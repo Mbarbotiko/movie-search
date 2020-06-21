@@ -3,6 +3,7 @@ import './App.scss';
 import list from './data/temporaryList'
 import Table from './components/Table';
 import Search from './components/Search';
+import ErrorBoundary from './components/ErrorBoundary'
 
 
 
@@ -36,11 +37,17 @@ class App extends Component {
   }
 
   onSearchChange(event) {
-    this.setState({
-      searchTerm: event.target.value
+    try {
+      this.setState({
+        searchTerm: event.target.value
 
-    })
+      })
+    } catch (err) {
+      console.log(err)
+    }
   }
+
+
 
 
 
@@ -54,16 +61,21 @@ class App extends Component {
         <div className='Featured'>
 
         </div>
-        <Search
-          value={searchTerm}
-          onChange={this.onSearchChange}
-        ><p>Search a movie title</p>
-        </Search>
-        <Table
-          list={list}
-          pattern={searchTerm}
-          onDismiss={this.onDismiss}
-        />
+        <ErrorBoundary>
+          <Search
+            value={searchTerm}
+            onChange={this.onSearchChange}
+          ><p>Search a movie title</p>
+          </Search>
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <Table
+            list={list}
+            pattern={searchTerm}
+            onDismiss={this.onDismiss}
+          />
+        </ErrorBoundary>
+
       </div>
     );
   }

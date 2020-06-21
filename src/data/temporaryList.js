@@ -6,7 +6,7 @@ const list = [
       title: 'Jaws',
       director: 'Amanda',
       objectID: 0,
-      image:`${path}jaws.jpg`
+      image:`${path}jawsz.jpg`
     },
     {
       title: 'Die Hard',
