@@ -6,6 +6,8 @@ const titleNotFound = 'Title Not Found'
 
 
 const Table = ({ list, pattern, onDismiss }) => {
+     console.log('new list', list);
+
     const isSearched = searchTerm => {
         return item => {
             if (item.Title) {
@@ -14,22 +16,24 @@ const Table = ({ list, pattern, onDismiss }) => {
                 return 'Title Not Found'.toLowerCase().includes(searchTerm.toLowerCase());
             }
         }
+       
+
     }
     return (
         <div className='Results-Container'>
 
             {list.filter(isSearched(pattern)).map(item =>
+          
 
                 <div className='Results-Details' key={item.imdbID} >
 
-                    <div>
 
                         {/* <img src={require(`${item.image || errorImage}`)} alt={`Movie Poster: ${item.title}`} /> */}
 
-                        <img src={item.Poster} alt={`Movie Poster: ${item.title}`} />
+                        <img src={item.Poster} alt={`Movie Poster: ${item.Title}`} />
 
-                        <p>Movie Title : {item.Title || titleNotFound}</p>
-                    </div>
+                        <p>Movie Title : {item.Title|| titleNotFound}</p>
+                   
                     <div>
                         <p>Year : {item.Year}</p>
                     </div>

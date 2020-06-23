@@ -36,7 +36,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      result: null,
+      result: null,//set list to null so it wont render on initial instantiation in the constructor during render, then update when the call is completed in API in component did mount which re-renders the component
       searchTerm: DEFAULT_QUERY
     }
 
@@ -55,24 +55,33 @@ class App extends Component {
 
     fetch(firstSearch)
       .then(response => {
+        // console.log(response.ok, response.status, response.statusText, response.type)
         if (response.status === 200) {
 
           return response.json();
         }
       })
       .then(result => {
-        console.log(result.Search)
+        // console.log(result.Search)
         //set state using result argument passed to the setSearchTopStories method
-        this.setSearchTopStories(result)
+        this.setSearchTopStories(result.Search)
       }
       )
       .catch(error => error);
   }
 
   onDismiss(id) {
-    const updatedList = this.state.list.filter(item => item.objectID !== id);
+    
+
+    const isNotId = (item) => item.imdbID !== id;
+
+    // const updatedList = this.state.list.filter(item => item.objectID !== id);
+    const updatedHits = this.state.result.filter(isNotId);
+
+
     this.setState({
-      list: updatedList
+    //  result: { ...this.state.result, hits: updatedHits }
+    result : updatedHits
     })
 
   }
@@ -94,9 +103,11 @@ class App extends Component {
 
   render() {
     const { searchTerm, result } = this.state;
+    console.log('first render', result);
     if (!result) {
       return null;//return null and show nothing if there is no result
-    } 
+    }
+
     return (
       <div className="App">
         <header className="App-header">
@@ -114,7 +125,7 @@ class App extends Component {
         </ErrorBoundary>
         <ErrorBoundary>
           <Table
-            list={result.Search}
+            list={result}
             pattern={searchTerm}
             onDismiss={this.onDismiss}
           />
